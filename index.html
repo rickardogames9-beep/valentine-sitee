@@ -6,14 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4)}
-    .card{background:white;padding:2.5rem 2rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.15);text-align:center;max-width:460px;width:90%;transition:.4s}
+    .card{background:white;padding:2.5rem 2rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.15);text-align:center;max-width:460px;width:90%;transition:.4s;position:relative}
     h1{font-size:1.9rem;margin-bottom:1rem;color:#ff4d6d}
     p{color:#666;margin-bottom:1.8rem;font-size:1.05rem}
-    .buttons{position:relative;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;min-height:70px}
+
+    .buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;min-height:70px}
+
     button{padding:.7rem 1.4rem;border:none;border-radius:999px;font-size:1rem;cursor:pointer;transition:transform .2s ease,box-shadow .15s ease;white-space:nowrap}
     button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
-    #yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem}
-    #noBtn{background:#eaeaea;color:#333;position:absolute}
+
+    #yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem;z-index:2}
+
+    /* Nu se va muta pe tot ecranul */
+    #noBtn{background:#eaeaea;color:#333;position:fixed;z-index:10}
 
     .letter{text-align:left;background:#fff;border-radius:24px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.15);max-width:560px;width:90%;animation:fadeIn .5s ease}
     .letter h2{text-align:center;color:#ff4d6d;margin-top:0}
@@ -21,7 +26,8 @@
 
     .stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
     .stitch-wrap img{width:200px;max-width:90%}
-    .heart-text{position:absolute;bottom:55px;left:50%;transform:translateX(-50%);font-weight:800;color:#ff2f87;font-size:18px;letter-spacing:1px}
+
+    .heart-text{position:absolute;bottom:42px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
 
     @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
   </style>
@@ -31,19 +37,19 @@
     <h1>Te iubesc, Fraiero ❤️</h1>
     <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
 
-    <div class="buttons" id="btnBox">
+    <div class="buttons">
       <button id="yesBtn">Da 💖</button>
-      <button id="noBtn">Nu 🙈</button>
     </div>
   </div>
 
-<script>
-const noBtn=document.getElementById('noBtn');
-const yesBtn=document.getElementById('yesBtn');
-const card=document.getElementById('card');
-const box=document.getElementById('btnBox');
+  <button id="noBtn">Nu 🙈</button>
 
-const noTexts=[
+<script>
+const noBtn = document.getElementById('noBtn');
+const yesBtn = document.getElementById('yesBtn');
+const card = document.getElementById('card');
+
+const noTexts = [
  'Mai încearcă o dată 🥺',
  'Apasă „Da”, te rog 💕',
  'Nu fi fraieră 🙃',
@@ -54,37 +60,45 @@ const noTexts=[
  'Ești fraieră! 😑'
 ];
 
-let noClickCount=0;
-let yesScale=1;
+let noClickCount = 0;
+let yesScale = 1;
 
-function moveNo(){
- const maxX=box.clientWidth-noBtn.offsetWidth;
- const maxY=box.clientHeight-noBtn.offsetHeight;
- const x=Math.random()*Math.max(0,maxX);
- const y=Math.random()*Math.max(0,maxY);
- noBtn.style.left=x+'px';
- noBtn.style.top=y+'px';
+function moveNoFar() {
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + 'px';
+  noBtn.style.top  = y + 'px';
 }
 
-moveNo();
+moveNoFar();
 
-noBtn.addEventListener('click',()=>{
- yesScale+=0.15;
- yesBtn.style.transform=`scale(${yesScale})`;
+noBtn.addEventListener('click', () => {
+  yesScale += 0.15;
+  yesBtn.style.transform = `scale(${yesScale})`;
 
- if(noClickCount<noTexts.length){
-   noBtn.textContent=noTexts[noClickCount];
-   noClickCount++;
- }
- moveNo();
+  if (noClickCount < noTexts.length) {
+    noBtn.textContent = noTexts[noClickCount];
+    noClickCount++;
+  }
+
+  moveNoFar();
 });
 
-yesBtn.addEventListener('click',()=>{
- document.body.style.background='linear-gradient(135deg,#ffd1dc,#fff0f5)';
- card.outerHTML=`
+yesBtn.addEventListener('click', () => {
+  document.body.style.background = 'linear-gradient(135deg,#ffd1dc,#fff0f5)';
+
+  noBtn.remove();
+
+  card.outerHTML = `
   <div class="letter">
     <div class="stitch-wrap">
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmYAAAJfCAIAAABaO424AAAQAElEQVR4Aez995ctyXEmCJq5iogrMp8oCRRQ0BogABIk0Nwmm93bO7tnd37aH+bMOfs/zjmz5+zObPf0sJtD1QQJggShgULpJ1JdEcKV2X6RWVUsCJJoEkAV3gt/fiM9XJibfR7XvjD3zCqzX9KCwILA${''}" alt="Stitch" />
+      <!-- IMPORTANT: pune poza ta cu Stitch in acelasi folder cu index.html si numeste-o stitch.png -->
+      <img src="stitch.png" alt="Stitch cu inimă" />
       <div class="heart-text">NIKOLL</div>
     </div>
 
