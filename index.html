@@ -5,182 +5,98 @@
   <title>Te iubesc, Fraiero</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    }
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4)}
+    .card{background:white;padding:2.5rem 2rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.15);text-align:center;max-width:460px;width:90%;transition:.4s}
+    h1{font-size:1.9rem;margin-bottom:1rem;color:#ff4d6d}
+    p{color:#666;margin-bottom:1.8rem;font-size:1.05rem}
+    .buttons{position:relative;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;min-height:70px}
+    button{padding:.7rem 1.4rem;border:none;border-radius:999px;font-size:1rem;cursor:pointer;transition:transform .2s ease,box-shadow .15s ease;white-space:nowrap}
+    button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
+    #yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem}
+    #noBtn{background:#eaeaea;color:#333;position:absolute}
 
-    .card {
-      background: white;
-      padding: 2.5rem 2rem;
-      border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      text-align: center;
-      max-width: 460px;
-      width: 90%;
-      transition: all 0.4s ease;
-    }
+    .letter{text-align:left;background:#fff;border-radius:24px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.15);max-width:560px;width:90%;animation:fadeIn .5s ease}
+    .letter h2{text-align:center;color:#ff4d6d;margin-top:0}
+    .letter p{color:#444;margin:.6rem 0;font-size:1.05rem}
 
-    h1 {
-      font-size: 1.9rem;
-      margin-bottom: 1rem;
-      color: #ff4d6d;
-    }
+    .stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
+    .stitch-wrap img{width:200px;max-width:90%}
+    .heart-text{position:absolute;bottom:55px;left:50%;transform:translateX(-50%);font-weight:800;color:#ff2f87;font-size:18px;letter-spacing:1px}
 
-    p {
-      color: #666;
-      margin-bottom: 1.8rem;
-      font-size: 1.05rem;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      padding: 0.7rem 1.4rem;
-      border: none;
-      border-radius: 999px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.15s ease;
-    }
-
-    button:hover {
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
-
-    #yesBtn {
-      background: #ff4d6d;
-      color: white;
-      font-size: 1.1rem;
-    }
-
-    #noBtn {
-      background: #eaeaea;
-      color: #333;
-      max-width: 100%;
-    }
-
-    /* Letter view */
-    .letter {
-      text-align: left;
-      background: #fff;
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-      max-width: 560px;
-      width: 90%;
-      animation: fadeIn 0.5s ease;
-    }
-
-    .letter h2 {
-      text-align: center;
-      color: #ff4d6d;
-      margin-top: 0;
-    }
-
-    .letter p {
-      color: #444;
-      margin: 0.6rem 0;
-      font-size: 1.05rem;
-    }
-
-    .stitch-box {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to   { opacity: 1; transform: scale(1); }
-    }
+    @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
   </style>
 </head>
 <body>
   <div class="card" id="card">
     <h1>Te iubesc, Fraiero ❤️</h1>
-    <p>Vrei să fii Valentine-ul meu, Fraiero?</p>
+    <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
 
-    <div class="buttons">
+    <div class="buttons" id="btnBox">
       <button id="yesBtn">Da 💖</button>
       <button id="noBtn">Nu 🙈</button>
     </div>
   </div>
 
-  <script>
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const card = document.getElementById('card');
+<script>
+const noBtn=document.getElementById('noBtn');
+const yesBtn=document.getElementById('yesBtn');
+const card=document.getElementById('card');
+const box=document.getElementById('btnBox');
 
-    const noTexts = [
-      'Mai încearcă o dată 🥺',
-      'Apasă „Da”',
-      'Nu fi fraieră 🙃',
-      'Hai… chiar vrei să spui nu? 😅',
-      'Uite ce trist sunt… 🥲',
-      'Apasă „Da” și promit că va fi frumos 💖',
-      'Ești fraieră! 😑'
-    ];
+const noTexts=[
+ 'Mai încearcă o dată 🥺',
+ 'Apasă „Da”, te rog 💕',
+ 'Nu fi fraieră 🙃',
+ 'Hai… chiar vrei să spui nu? 😅',
+ 'Te rog frumos 😭',
+ 'Uite ce trist sunt… 🥲',
+ 'Apasă „Da” și promit că va fi frumos 💖',
+ 'Ești fraieră! 😑'
+];
 
-    let noClickCount = 0;
-    let yesScale = 1;
+let noClickCount=0;
+let yesScale=1;
 
-    noBtn.addEventListener('click', () => {
-      yesScale += 0.18;
-      yesBtn.style.transform = `scale(${yesScale})`;
+function moveNo(){
+ const maxX=box.clientWidth-noBtn.offsetWidth;
+ const maxY=box.clientHeight-noBtn.offsetHeight;
+ const x=Math.random()*Math.max(0,maxX);
+ const y=Math.random()*Math.max(0,maxY);
+ noBtn.style.left=x+'px';
+ noBtn.style.top=y+'px';
+}
 
-      if (noClickCount < noTexts.length) {
-        noBtn.textContent = noTexts[noClickCount];
-        noClickCount++;
-      } else {
-        noBtn.textContent = noTexts[noTexts.length - 1];
-      }
-    });
+moveNo();
 
-    yesBtn.addEventListener('click', () => {
-      document.body.style.background = 'linear-gradient(135deg, #ffd1dc, #fff0f5)';
+noBtn.addEventListener('click',()=>{
+ yesScale+=0.15;
+ yesBtn.style.transform=`scale(${yesScale})`;
 
-      card.outerHTML = `
-        <div class="letter">
-          <div class="stitch-box">
-            <!-- Cute Stitch-style illustration holding a pink heart -->
-            <svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
-              <!-- ears -->
-              <ellipse cx="25" cy="70" rx="18" ry="30" fill="#6ec6ff" />
-              <ellipse cx="135" cy="70" rx="18" ry="30" fill="#6ec6ff" />
-              <!-- head -->
-              <circle cx="80" cy="80" r="40" fill="#4fa3ff" />
-              <!-- eyes -->
-              <circle cx="65" cy="75" r="6" fill="#000" />
-              <circle cx="95" cy="75" r="6" fill="#000" />
-              <!-- smile -->
-              <path d="M60 95 Q80 105 100 95" stroke="#000" stroke-width="3" fill="none" />
-              <!-- heart -->
-              <path d="M80 115 C70 100, 40 105, 60 130 C75 150, 80 145, 80 145 C80 145, 85 150, 100 130 C120 105, 90 100, 80 115" fill="#ff6fae" />
-              <text x="80" y="132" text-anchor="middle" font-size="10" fill="#ffffff" font-weight="bold">NIKOLL</text>
-            </svg>
-          </div>
+ if(noClickCount<noTexts.length){
+   noBtn.textContent=noTexts[noClickCount];
+   noClickCount++;
+ }
+ moveNo();
+});
 
-          <h2>💌 Scrisoare de invitație</h2>
+yesBtn.addEventListener('click',()=>{
+ document.body.style.background='linear-gradient(135deg,#ffd1dc,#fff0f5)';
+ card.outerHTML=`
+  <div class="letter">
+    <div class="stitch-wrap">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAmYAAAJfCAIAAABaO424AAAQAElEQVR4Aez995ctyXEmCJq5iogrMp8oCRRQ0BogABIk0Nwmm93bO7tnd37aH+bMOfs/zjmz5+zObPf0sJtD1QQJggShgULpJ1JdEcKV2X6RWVUsCJJoEkAV3gt/fiM9XJibfR7XvjD3zCqzX9KCwILA${''}" alt="Stitch" />
+      <div class="heart-text">NIKOLL</div>
+    </div>
 
-          <p><strong>Marius Andrei Axinciuc</strong> o invită pe <strong>Nicola Dorina Saloparu</strong> la o <strong>întâlnire</strong>.</p>
-          <p><strong>Locația:</strong> Secretă.</p>
-          <p><strong>Dress code:</strong> Cum vrei tu, oricum ești frumoasă în orice outfit.</p>
-          <p><strong>Ora:</strong> 18:00.</p>
-          <p><strong>Transport:</strong> Te duc în brațe.</p>
-        </div>
-      `;
-    });
-  </script>
+    <h2>💌 Scrisoare de dragoste</h2>
+
+    <p><strong>Marius Andrei Axinciuc</strong> o invită pe <strong>Nicola Dorina Saloparu</strong> la o <strong>întâlnire</strong>.</p>
+    <p><strong>Locația:</strong> Secretă.</p>
+    <p><strong>Dress code:</strong> Cum vrei tu, oricum ești frumoasă în orice outfit.</p>
+    <p><strong>Ora:</strong> 18:00.</p>
+    <p><strong>Transport:</strong> Te duc în brațe.</p>
+  </div>`;
+});
+</script>
 </body>
 </html>
