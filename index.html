@@ -14,14 +14,28 @@ button{padding:.7rem 1.4rem;border:none;border-radius:999px;font-size:1rem;curso
 button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
 #yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem;z-index:2;position:relative}
 #noBtn{background:#eaeaea;color:#333;position:fixed;z-index:50}
-.letter{text-align:left;background:#fff;border-radius:24px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.15);max-width:560px;width:90%;animation:fadeIn .5s ease}
-.letter h2{text-align:center;color:#ff4d6d;margin-top:0}
-.letter p{color:#444;margin:.6rem 0;font-size:1.05rem}
-.stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
-.stitch-wrap img{width:200px;max-width:90%}
-.heart-text{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
-.love-msg{margin-top:1rem;font-size:1.05rem;color:#444}
-.giphy{display:block;margin:14px auto 0;max-width:200px;width:80%;border-radius:16px}
+
+/* Scrisoarea mai mare */
+.letter{text-align:left;background:#fff;border-radius:28px;padding:3rem 3rem 2.8rem;box-shadow:0 25px 50px rgba(0,0,0,.18);max-width:760px;width:92%;animation:fadeIn .5s ease}
+.letter h2{text-align:center;color:#ff4d6d;margin-top:0;font-size:2.2rem}
+.letter p{color:#444;margin:.7rem 0;font-size:1.15rem;line-height:1.6}
+
+.stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1.4rem}
+.stitch-wrap img{width:220px;max-width:90%}
+.heart-text{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:20px;letter-spacing:1px}
+
+/* Mesajul pus clar pe scrisoare */
+.love-msg{
+  margin-top:1.2rem;
+  padding:1.2rem 1.3rem;
+  border-radius:18px;
+  background:linear-gradient(180deg,#fff5f8,#ffffff);
+  border:1px solid #ffd1dc;
+  font-size:1.18rem;
+  line-height:1.65;
+}
+
+.giphy{display:block;margin:18px auto 0;max-width:220px;width:80%;border-radius:16px}
 @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 </style>
 </head>
@@ -91,10 +105,10 @@ yesBtn.addEventListener('click', () => {
   noBtn.remove();
 
   card.outerHTML = `
-  <div class="letter">
-    <div class="stitch-wrap">
-      <img src="stitch.png" alt="Stitch cu inimă" />
-      <div class="heart-text">NIKOLL</div>
+  <div class=\"letter\">
+    <div class=\"stitch-wrap\">
+      <img src=\"stitch.png\" alt=\"Stitch cu inimă\" />
+      <div class=\"heart-text\">NIKOLL</div>
     </div>
 
     <h2>💌 Scrisoare de dragoste</h2>
@@ -105,14 +119,9 @@ yesBtn.addEventListener('click', () => {
     <p><strong>Ora:</strong> 18:00.</p>
     <p><strong>Transport:</strong> Te duc în brațe.</p>
 
-   <p class="love-msg">
-    Te iubesc pentru felul în care mă faci să fiu eu însumi, pentru iubirea pe care mi-o oferi.
-    Fiecare îmbrățișare mă face să te iubesc mai mult și să îmi dau seama cât de mult te iubesc
-    pe zi ce trece. Mă bucur extrem de mult că suntem împreună.
-    I love you a lot, pui. ❤️
-     </p>
+    <p class=\"love-msg\">Te iubesc pentru felul în care mă faci să fiu eu însumi, pentru iubirea pe care mi-o oferi. Fiecare îmbrățișare mă face să te iubesc mai mult și să îmi dau seama cât de mult te iubesc pe zi ce trece. Mă bucur extrem de mult că suntem împreună. I love you a lot, pui. ❤️</p>
 
-    <img src="giphy.gif" alt="GIF dragoste" class="giphy">
+    <img src=\"giphy.gif\" alt=\"GIF dragoste\" class=\"giphy\" />
   </div>`;
 });
 </script>
