@@ -20,6 +20,8 @@ button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
 .stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
 .stitch-wrap img{width:200px;max-width:90%}
 .heart-text{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
+.love-msg{margin-top:1rem;font-size:1.05rem;color:#444}
+.giphy{display:block;margin:14px auto 0;max-width:200px;width:80%;border-radius:16px}
 @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 </style>
 </head>
@@ -27,7 +29,7 @@ button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
 
 <div class="card" id="card">
   <h1>Te iubesc, Fraiero ❤️</h1>
-  <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
+  <p>Vrei să fii Valentine-ul meu, Fraiero?</p>
   <div class="buttons">
     <button id="yesBtn">Da 💖</button>
   </div>
@@ -53,9 +55,7 @@ const noTexts = [
 
 let noClickCount = 0;
 let yesScale = 1;
-let firstMove = true;
 
-// pune butonul Nu langa Da la inceput
 function placeNearYes(){
   const r = yesBtn.getBoundingClientRect();
   noBtn.style.left = (r.right + 12) + 'px';
@@ -83,10 +83,6 @@ noBtn.addEventListener('click', () => {
     noClickCount++;
   }
 
-  if(firstMove){
-    firstMove = false;
-  }
-
   moveNoFar();
 });
 
@@ -108,6 +104,10 @@ yesBtn.addEventListener('click', () => {
     <p><strong>Dress code:</strong> Cum vrei tu, oricum ești frumoasă în orice outfit.</p>
     <p><strong>Ora:</strong> 18:00.</p>
     <p><strong>Transport:</strong> Te duc în brațe.</p>
+
+    <p class="love-msg">Te iubesc pentru felul în care mă faci să fiu eu însumi, pentru iubirea pe care mi‑o oferi. Fiecare îmbrățișare mă face să te iubesc mai mult și să îmi dau seama cât de mult te iubesc pe zi ce trece. Mă bucur extrem de mult că suntem împreună. I love you a lot, pui. ❤️</p>
+
+    <img src="giphy.gif" alt="GIF dragoste" class="giphy" />
   </div>`;
 });
 </script>
