@@ -17,8 +17,8 @@
 
     #yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem;z-index:2}
 
-    /* Nu se va muta pe tot ecranul */
-    #noBtn{background:#eaeaea;color:#333;position:fixed;z-index:10}
+    /* La început sta langa Da */
+    #noBtn{background:#eaeaea;color:#333;z-index:3}
 
     .letter{text-align:left;background:#fff;border-radius:24px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.15);max-width:560px;width:90%;animation:fadeIn .5s ease}
     .letter h2{text-align:center;color:#ff4d6d;margin-top:0}
@@ -27,7 +27,8 @@
     .stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
     .stitch-wrap img{width:200px;max-width:90%}
 
-    .heart-text{position:absolute;bottom:42px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
+    /* Textul NIKOLL urcat mai sus pe inima */
+    .heart-text{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
 
     @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
   </style>
@@ -37,17 +38,17 @@
     <h1>Te iubesc, Fraiero ❤️</h1>
     <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
 
-    <div class="buttons">
+    <div class="buttons" id="btnRow">
       <button id="yesBtn">Da 💖</button>
+      <button id="noBtn">Nu 🙈</button>
     </div>
   </div>
-
-  <button id="noBtn">Nu 🙈</button>
 
 <script>
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const card = document.getElementById('card');
+const row  = document.getElementById('btnRow');
 
 const noTexts = [
  'Mai încearcă o dată 🥺',
@@ -55,62 +56,4 @@ const noTexts = [
  'Nu fi fraieră 🙃',
  'Hai… chiar vrei să spui nu? 😅',
  'Te rog frumos 😭',
- 'Uite ce trist sunt… 🥲',
- 'Apasă „Da” și promit că va fi frumos 💖',
- 'Ești fraieră! 😑'
-];
-
-let noClickCount = 0;
-let yesScale = 1;
-
-function moveNoFar() {
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  noBtn.style.left = x + 'px';
-  noBtn.style.top  = y + 'px';
-}
-
-moveNoFar();
-
-noBtn.addEventListener('click', () => {
-  yesScale += 0.15;
-  yesBtn.style.transform = `scale(${yesScale})`;
-
-  if (noClickCount < noTexts.length) {
-    noBtn.textContent = noTexts[noClickCount];
-    noClickCount++;
-  }
-
-  moveNoFar();
-});
-
-yesBtn.addEventListener('click', () => {
-  document.body.style.background = 'linear-gradient(135deg,#ffd1dc,#fff0f5)';
-
-  noBtn.remove();
-
-  card.outerHTML = `
-  <div class="letter">
-    <div class="stitch-wrap">
-      <!-- IMPORTANT: pune poza ta cu Stitch in acelasi folder cu index.html si numeste-o stitch.png -->
-      <img src="stitch.png" alt="Stitch cu inimă" />
-      <div class="heart-text">NIKOLL</div>
-    </div>
-
-    <h2>💌 Scrisoare de dragoste</h2>
-
-    <p><strong>Marius Andrei Axinciuc</strong> o invită pe <strong>Nicola Dorina Saloparu</strong> la o <strong>întâlnire</strong>.</p>
-    <p><strong>Locația:</strong> Secretă.</p>
-    <p><strong>Dress code:</strong> Cum vrei tu, oricum ești frumoasă în orice outfit.</p>
-    <p><strong>Ora:</strong> 18:00.</p>
-    <p><strong>Transport:</strong> Te duc în brațe.</p>
-  </div>`;
-});
-</script>
-</body>
-</html>
+ 'Ui
