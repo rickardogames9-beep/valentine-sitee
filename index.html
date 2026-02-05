@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <title>Will you be my Valentine?</title>
+  <title>Te iubesc, Fraiero</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -21,18 +21,21 @@
       border-radius: 24px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       text-align: center;
-      max-width: 420px;
+      max-width: 460px;
       width: 90%;
+      transition: all 0.4s ease;
     }
 
     h1 {
       font-size: 1.9rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #ff4d6d;
     }
 
     p {
       color: #666;
       margin-bottom: 1.8rem;
+      font-size: 1.05rem;
     }
 
     .buttons {
@@ -65,51 +68,66 @@
       color: #333;
     }
 
-    .result {
-      display: none;
-      margin-top: 1.5rem;
-      font-size: 1.2rem;
+    /* Letter view */
+    .letter {
+      text-align: left;
+      background: #fff;
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 520px;
+      width: 90%;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .letter h2 {
+      text-align: center;
       color: #ff4d6d;
-      font-weight: 600;
+      margin-top: 0;
+    }
+
+    .letter p {
+      color: #444;
+      margin: 0.6rem 0;
+      font-size: 1.05rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to   { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Hey… I made a tiny website for you 💌</h1>
-    <p>Will you be my Valentine Fraiero!!</p>
+  <div class="card" id="card">
+    <h1>Te iubesc, Fraiero ❤️</h1>
+    <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
 
     <div class="buttons">
       <button id="yesBtn">Da 💖</button>
       <button id="noBtn">Nu 🙈</button>
-    </div>
-
-    <div class="result" id="result">
-      Yay!! I’m really happy you said yes 🥰
     </div>
   </div>
 
   <script>
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
-    const result = document.getElementById('result');
+    const card = document.getElementById('card');
 
     const noTexts = [
-      'Mai incearca o data',
-      'Apasa da',
-      'Nu fii Fraiera',
-      'Esti Fraiera!😑'
+      'Mai încearcă o dată',
+      'Apasă „Da”',
+      'Nu fi fraieră',
+      'Ești fraieră! 😑'
     ];
 
     let noClickCount = 0;
     let yesScale = 1;
 
     noBtn.addEventListener('click', () => {
-      // Make the "Da" button bigger every time "Nu" is pressed
       yesScale += 0.2;
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      // Change the text of the "Nu" button each time
       if (noClickCount < noTexts.length) {
         noBtn.textContent = noTexts[noClickCount];
         noClickCount++;
@@ -117,9 +135,19 @@
     });
 
     yesBtn.addEventListener('click', () => {
-      result.style.display = 'block';
-      yesBtn.disabled = true;
-      noBtn.disabled = true;
+      // Change the whole look into a love letter
+      document.body.style.background = 'linear-gradient(135deg, #ffd1dc, #fff0f5)';
+
+      card.outerHTML = `
+        <div class="letter">
+          <h2>💌 Scrisoare de invitație</h2>
+          <p><strong>Marius Andrei Axinciuc</strong> o invită pe <strong>Nicola Dorina Saloparu</strong> la o <strong>întâlnire</strong>.</p>
+          <p><strong>Locația:</strong> Secretă</p>
+          <p><strong>Dress code:</strong> Cum vrei tu, oricum ești frumoasă în orice outfit.</p>
+          <p><strong>Ora:</strong> 18:00</p>
+          <p><strong>Transport:</strong> Te iau eu cu mașina.</p>
+        </div>
+      `;
     });
   </script>
 </body>
