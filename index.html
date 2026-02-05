@@ -1,54 +1,44 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <title>Te iubesc, Fraiero</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4)}
-    .card{background:white;padding:2.5rem 2rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.15);text-align:center;max-width:460px;width:90%;transition:.4s;position:relative}
-    h1{font-size:1.9rem;margin-bottom:1rem;color:#ff4d6d}
-    p{color:#666;margin-bottom:1.8rem;font-size:1.05rem}
-
-    .buttons{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;min-height:70px}
-
-    button{padding:.7rem 1.4rem;border:none;border-radius:999px;font-size:1rem;cursor:pointer;transition:transform .2s ease,box-shadow .15s ease;white-space:nowrap}
-    button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
-
-    #yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem;z-index:2}
-
-    /* La început sta langa Da */
-    #noBtn{background:#eaeaea;color:#333;z-index:3}
-
-    .letter{text-align:left;background:#fff;border-radius:24px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.15);max-width:560px;width:90%;animation:fadeIn .5s ease}
-    .letter h2{text-align:center;color:#ff4d6d;margin-top:0}
-    .letter p{color:#444;margin:.6rem 0;font-size:1.05rem}
-
-    .stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
-    .stitch-wrap img{width:200px;max-width:90%}
-
-    /* Textul NIKOLL urcat mai sus pe inima */
-    .heart-text{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
-
-    @keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-  </style>
+<meta charset="UTF-8" />
+<title>Te iubesc, Fraiero</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#ff9a9e,#fad0c4)}
+.card{background:white;padding:2.5rem 2rem;border-radius:24px;box-shadow:0 20px 40px rgba(0,0,0,.15);text-align:center;max-width:460px;width:90%;position:relative}
+h1{font-size:1.9rem;margin-bottom:1rem;color:#ff4d6d}
+p{color:#666;margin-bottom:1.8rem;font-size:1.05rem}
+.buttons{display:flex;justify-content:center;gap:16px}
+button{padding:.7rem 1.4rem;border:none;border-radius:999px;font-size:1rem;cursor:pointer;transition:transform .2s ease,box-shadow .15s ease;white-space:nowrap}
+button:hover{box-shadow:0 8px 20px rgba(0,0,0,.15)}
+#yesBtn{background:#ff4d6d;color:#fff;font-size:1.1rem;z-index:2;position:relative}
+#noBtn{background:#eaeaea;color:#333;position:fixed;z-index:50}
+.letter{text-align:left;background:#fff;border-radius:24px;padding:2rem;box-shadow:0 20px 40px rgba(0,0,0,.15);max-width:560px;width:90%;animation:fadeIn .5s ease}
+.letter h2{text-align:center;color:#ff4d6d;margin-top:0}
+.letter p{color:#444;margin:.6rem 0;font-size:1.05rem}
+.stitch-wrap{position:relative;display:flex;justify-content:center;margin-bottom:1rem}
+.stitch-wrap img{width:200px;max-width:90%}
+.heart-text{position:absolute;bottom:62px;left:50%;transform:translateX(-50%);font-weight:900;color:#ff2f87;font-size:18px;letter-spacing:1px}
+@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+</style>
 </head>
 <body>
-  <div class="card" id="card">
-    <h1>Te iubesc, Fraiero ❤️</h1>
-    <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
 
-    <div class="buttons" id="btnRow">
-      <button id="yesBtn">Da 💖</button>
-      <button id="noBtn">Nu 🙈</button>
-    </div>
+<div class="card" id="card">
+  <h1>Te iubesc, Fraiero ❤️</h1>
+  <p>Vrei să fii Valentine‑ul meu, Fraiero?</p>
+  <div class="buttons">
+    <button id="yesBtn">Da 💖</button>
   </div>
+</div>
+
+<button id="noBtn">Nu 🙈</button>
 
 <script>
 const noBtn = document.getElementById('noBtn');
 const yesBtn = document.getElementById('yesBtn');
 const card = document.getElementById('card');
-const row  = document.getElementById('btnRow');
 
 const noTexts = [
  'Mai încearcă o dată 🥺',
@@ -63,19 +53,26 @@ const noTexts = [
 
 let noClickCount = 0;
 let yesScale = 1;
-let detached = false; // dupa prima apasare incepe sa fuga
+let firstMove = true;
 
-function moveNoFar() {
-  const padding = 20;
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+// pune butonul Nu langa Da la inceput
+function placeNearYes(){
+  const r = yesBtn.getBoundingClientRect();
+  noBtn.style.left = (r.right + 12) + 'px';
+  noBtn.style.top  = r.top + 'px';
+}
 
+function moveNoFar(){
+  const pad = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - pad;
+  const maxY = window.innerHeight - noBtn.offsetHeight - pad;
   const x = Math.random() * maxX;
   const y = Math.random() * maxY;
-
   noBtn.style.left = x + 'px';
   noBtn.style.top  = y + 'px';
 }
+
+placeNearYes();
 
 noBtn.addEventListener('click', () => {
   yesScale += 0.15;
@@ -86,12 +83,8 @@ noBtn.addEventListener('click', () => {
     noClickCount++;
   }
 
-  // dupa primul click, scoatem butonul din rand si il facem sa fuga pe ecran
-  if (!detached) {
-    detached = true;
-    row.removeChild(noBtn);
-    document.body.appendChild(noBtn);
-    noBtn.style.position = 'fixed';
+  if(firstMove){
+    firstMove = false;
   }
 
   moveNoFar();
@@ -99,8 +92,7 @@ noBtn.addEventListener('click', () => {
 
 yesBtn.addEventListener('click', () => {
   document.body.style.background = 'linear-gradient(135deg,#ffd1dc,#fff0f5)';
-
-  if (noBtn.parentNode) noBtn.remove();
+  noBtn.remove();
 
   card.outerHTML = `
   <div class="letter">
