@@ -56,4 +56,68 @@ const noTexts = [
  'Nu fi fraieră 🙃',
  'Hai… chiar vrei să spui nu? 😅',
  'Te rog frumos 😭',
- 'Ui
+ 'Uite ce trist sunt… 🥲',
+ 'Apasă „Da” și promit că va fi frumos 💖',
+ 'Ești fraieră! 😑'
+];
+
+let noClickCount = 0;
+let yesScale = 1;
+let detached = false; // dupa prima apasare incepe sa fuga
+
+function moveNoFar() {
+  const padding = 20;
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + 'px';
+  noBtn.style.top  = y + 'px';
+}
+
+noBtn.addEventListener('click', () => {
+  yesScale += 0.15;
+  yesBtn.style.transform = `scale(${yesScale})`;
+
+  if (noClickCount < noTexts.length) {
+    noBtn.textContent = noTexts[noClickCount];
+    noClickCount++;
+  }
+
+  // dupa primul click, scoatem butonul din rand si il facem sa fuga pe ecran
+  if (!detached) {
+    detached = true;
+    row.removeChild(noBtn);
+    document.body.appendChild(noBtn);
+    noBtn.style.position = 'fixed';
+  }
+
+  moveNoFar();
+});
+
+yesBtn.addEventListener('click', () => {
+  document.body.style.background = 'linear-gradient(135deg,#ffd1dc,#fff0f5)';
+
+  if (noBtn.parentNode) noBtn.remove();
+
+  card.outerHTML = `
+  <div class="letter">
+    <div class="stitch-wrap">
+      <img src="stitch.png" alt="Stitch cu inimă" />
+      <div class="heart-text">NIKOLL</div>
+    </div>
+
+    <h2>💌 Scrisoare de dragoste</h2>
+
+    <p><strong>Marius Andrei Axinciuc</strong> o invită pe <strong>Nicola Dorina Saloparu</strong> la o <strong>întâlnire</strong>.</p>
+    <p><strong>Locația:</strong> Secretă.</p>
+    <p><strong>Dress code:</strong> Cum vrei tu, oricum ești frumoasă în orice outfit.</p>
+    <p><strong>Ora:</strong> 18:00.</p>
+    <p><strong>Transport:</strong> Te duc în brațe.</p>
+  </div>`;
+});
+</script>
+</body>
+</html>
